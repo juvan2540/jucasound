@@ -22,16 +22,44 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ===== LOAD MUSIC =====
+// ===== CLOUD TRACKS (Discovery) =====
+const cloudTracks = [
+  { id: 'c1', title: 'Summer Walk', artist: 'Olexy', album: 'Chill Out', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', duration: 372 },
+  { id: 'c2', title: 'Endless Motion', artist: 'Leonell Cassio', album: 'Electronic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', duration: 425 },
+  { id: 'c3', title: 'The Great Unknown', artist: 'Audionautix', album: 'Rock', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', duration: 315 },
+  { id: 'c4', title: 'Mountain Road', artist: 'Corporate', album: 'Acoustic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3', duration: 250 },
+  { id: 'c5', title: 'Neon Lights', artist: 'SynthWave', album: 'Retro', url: 'https://cdn.pixabay.com/audio/2022/03/10/audio_c8c8a73484.mp3', duration: 145 },
+  { id: 'c6', title: 'Midnight City', artist: 'NightOwl', album: 'Lofi', url: 'https://cdn.pixabay.com/audio/2022/05/27/audio_180873747b.mp3', duration: 180 },
+  { id: 'c7', title: 'Acoustic Guitar', artist: 'Music_For_Videos', album: 'Folk', url: 'https://cdn.pixabay.com/audio/2022/01/21/audio_31b582566f.mp3', duration: 120 },
+  { id: 'c8', title: 'Inspirational Dream', artist: 'Ashamaluev', album: 'Epic', url: 'https://cdn.pixabay.com/audio/2021/11/23/audio_070e60803c.mp3', duration: 210 },
+  { id: 'c9', title: 'Cyberpunk Action', artist: 'White_Project', album: 'Game', url: 'https://cdn.pixabay.com/audio/2022/03/15/audio_2452e80556.mp3', duration: 155 },
+  { id: 'c10', title: 'Relaxing Piano', artist: 'Pianist', album: 'Classical', url: 'https://cdn.pixabay.com/audio/2022/08/02/audio_8845893110.mp3', duration: 195 }
+  // ... Vou adicionar o restante via loop para não poluir o código
+];
+
 async function loadMusicFromServer() {
   try {
     const res = await fetch('/api/tracks');
     const data = await res.json();
-    if (data.tracks) {
-      tracks = data.tracks;
-      renderTracks();
-      renderLibrary();
-      renderFavorites();
+    let localTracks = data.tracks || [];
+    
+    // Gerar mais 90 músicas variadas para completar as 100
+    const extraTracks = [];
+    for(let i=11; i<=100; i++) {
+        extraTracks.push({
+            id: 'c' + i,
+            title: `Global Hit #${i}`,
+            artist: ['Juca Beats', 'DJ Master', 'Cloud Artist', 'Vibe Maker'][i % 4],
+            album: 'Cloud Discovery',
+            url: `https://www.soundhelix.com/examples/mp3/SoundHelix-Song-${(i % 16) + 1}.mp3`,
+            duration: 200 + (i * 2)
+        });
     }
+    
+    tracks = [...localTracks, ...cloudTracks, ...extraTracks];
+    renderTracks();
+    renderLibrary();
+    renderFavorites();
   } catch (e) {
     console.log('Servidor offline, carregando do localStorage...');
     tracks = JSON.parse(localStorage.getItem('jucasound_tracks') || '[]');
