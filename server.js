@@ -6,11 +6,11 @@ const app = express();
 
 // Servir arquivos estáticos
 app.use(express.static(__dirname));
-app.use('/musicas', express.static(path.join(__dirname, 'public', 'musicas')));
+app.use('/musicas', express.static(path.join(__dirname, 'musicas')));
 
 // API - Listar músicas
 app.get('/api/tracks', (req, res) => {
-  const musicDir = path.join(__dirname, 'public', 'musicas');
+  const musicDir = path.join(__dirname, 'musicas');
   
   if (!fs.existsSync(musicDir)) {
     return res.json({ tracks: [] });
@@ -58,5 +58,5 @@ app.get('*', (req, res) => {
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`🎵 JucaSound rodando em http://localhost:${PORT}`);
-  console.log(`📂 Músicas: ${path.join(__dirname, 'public', 'musicas')}`);
+  console.log(`📂 Músicas: ${path.join(__dirname, 'musicas')}`);
 });
