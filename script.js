@@ -24,11 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
 // ===== LOAD MUSIC =====
 // ===== CLOUD TRACKS (Discovery) =====
 const cloudTracks = [
-  { id: 'c1', title: 'Energia Positiva', artist: 'Google Audio', album: 'Discovery', url: 'http://codeskulptor-demos.commondatastorage.googleapis.com/descent/background%20music.mp3', duration: 120 },
-  { id: 'c2', title: 'Espaço Sideral', artist: 'NASA', album: 'Planetas', url: 'https://www.nasa.gov/wp-content/uploads/2023/11/apollo_11_launch.mp3', duration: 30 },
-  { id: 'c3', title: 'Ritmo Eletrônico', artist: 'Demo Audio', album: 'Dance', url: 'http://codeskulptor-demos.commondatastorage.googleapis.com/pang/paza-moduless.mp3', duration: 150 },
-  { id: 'c4', title: 'Vibe Noturna', artist: 'Juca Cloud', album: 'Chill', url: 'http://commondatastorage.googleapis.com/codeskulptor-assets/Epoq-Lepidoptera.mp3', duration: 180 },
-  { id: 'c5', title: 'Sinfonia Digital', artist: 'Tech Music', album: 'Future', url: 'http://commondatastorage.googleapis.com/codeskulptor-demos/riceracer_assets/music/win.mp3', duration: 45 }
+  { id: 'c1', title: 'Classical Symphony', artist: 'Kevin MacLeod', album: 'YouTube Audio', url: 'https://www.chosic.com/wp-content/uploads/2021/07/The-Entertainer.mp3', duration: 120 },
+  { id: 'c2', title: 'Lofi Study', artist: 'FSM Team', album: 'Chill', url: 'https://www.free-stock-music.com/music/fsm-team-es-lofi-study.mp3', duration: 180 },
+  { id: 'c3', title: 'Epic Adventure', artist: 'MaxKoMusic', album: 'Cinematic', url: 'https://maxkomusic.com/wp-content/uploads/2020/10/Epic-Adventure.mp3', duration: 150 },
+  { id: 'c4', title: 'Summer Vibe', artist: 'Erik Lund', album: 'Tropical', url: 'https://www.free-stock-music.com/music/erik-lund-summertime.mp3', duration: 190 },
+  { id: 'c5', title: 'Modern Rock', artist: 'Infraction', album: 'Rock', url: 'https://www.free-stock-music.com/music/infraction-rock-it.mp3', duration: 145 }
 ];
 
 async function loadMusicFromServer() {
@@ -40,10 +40,10 @@ async function loadMusicFromServer() {
     // Gerar mais 90 músicas variadas para completar as 100
     const extraTracks = [];
     const baseUrls = [
-        'http://codeskulptor-demos.commondatastorage.googleapis.com/descent/background%20music.mp3',
-        'http://commondatastorage.googleapis.com/codeskulptor-assets/Epoq-Lepidoptera.mp3',
-        'http://codeskulptor-demos.commondatastorage.googleapis.com/pang/paza-moduless.mp3',
-        'http://commondatastorage.googleapis.com/codeskulptor-demos/riceracer_assets/music/win.mp3'
+        'https://www.chosic.com/wp-content/uploads/2021/07/The-Entertainer.mp3',
+        'https://www.free-stock-music.com/music/fsm-team-es-lofi-study.mp3',
+        'https://maxkomusic.com/wp-content/uploads/2020/10/Epic-Adventure.mp3',
+        'https://www.free-stock-music.com/music/erik-lund-summertime.mp3'
     ];
     for(let i=11; i<=100; i++) {
         extraTracks.push({
