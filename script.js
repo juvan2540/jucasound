@@ -24,16 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
 // ===== LOAD MUSIC =====
 // ===== CLOUD TRACKS (Discovery) =====
 const cloudTracks = [
-  { id: 'c1', title: 'Acoustic Breeze', artist: 'Bensound', album: 'Folk', url: 'https://www.bensound.com/bensound-music/bensound-acousticbreeze.mp3', duration: 156 },
-  { id: 'c2', title: 'Creative Minds', artist: 'Bensound', album: 'Jazz', url: 'https://www.bensound.com/bensound-music/bensound-creativeminds.mp3', duration: 147 },
-  { id: 'c3', title: 'Going Higher', artist: 'Bensound', album: 'Rock', url: 'https://www.bensound.com/bensound-music/bensound-goinghigher.mp3', duration: 244 },
-  { id: 'c4', title: 'Happy Rock', artist: 'Bensound', album: 'Energy', url: 'https://www.bensound.com/bensound-music/bensound-happyrock.mp3', duration: 105 },
-  { id: 'c5', title: 'Hey!', artist: 'Bensound', album: 'Pop', url: 'https://www.bensound.com/bensound-music/bensound-hey.mp3', duration: 146 },
-  { id: 'c6', title: 'Jazzy Frenchy', artist: 'Bensound', album: 'Jazz', url: 'https://www.bensound.com/bensound-music/bensound-jazzyfrenchy.mp3', duration: 104 },
-  { id: 'c7', title: 'Little Idea', artist: 'Bensound', album: 'Cute', url: 'https://www.bensound.com/bensound-music/bensound-littleidea.mp3', duration: 169 },
-  { id: 'c8', title: 'Memories', artist: 'Bensound', album: 'Sad', url: 'https://www.bensound.com/bensound-music/bensound-memories.mp3', duration: 230 },
-  { id: 'c9', title: 'Sunny', artist: 'Bensound', album: 'Happy', url: 'https://www.bensound.com/bensound-music/bensound-sunny.mp3', duration: 140 },
-  { id: 'c10', title: 'The Lounge', artist: 'Bensound', album: 'Relax', url: 'https://www.bensound.com/bensound-music/bensound-thelounge.mp3', duration: 256 }
+  { id: 'c1', title: 'Energia Positiva', artist: 'Google Audio', album: 'Discovery', url: 'http://codeskulptor-demos.commondatastorage.googleapis.com/descent/background%20music.mp3', duration: 120 },
+  { id: 'c2', title: 'Espaço Sideral', artist: 'NASA', album: 'Planetas', url: 'https://www.nasa.gov/wp-content/uploads/2023/11/apollo_11_launch.mp3', duration: 30 },
+  { id: 'c3', title: 'Ritmo Eletrônico', artist: 'Demo Audio', album: 'Dance', url: 'http://codeskulptor-demos.commondatastorage.googleapis.com/pang/paza-moduless.mp3', duration: 150 },
+  { id: 'c4', title: 'Vibe Noturna', artist: 'Juca Cloud', album: 'Chill', url: 'http://commondatastorage.googleapis.com/codeskulptor-assets/Epoq-Lepidoptera.mp3', duration: 180 },
+  { id: 'c5', title: 'Sinfonia Digital', artist: 'Tech Music', album: 'Future', url: 'http://commondatastorage.googleapis.com/codeskulptor-demos/riceracer_assets/music/win.mp3', duration: 45 }
 ];
 
 async function loadMusicFromServer() {
@@ -45,10 +40,10 @@ async function loadMusicFromServer() {
     // Gerar mais 90 músicas variadas para completar as 100
     const extraTracks = [];
     const baseUrls = [
-        'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-        'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
-        'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
-        'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3'
+        'http://codeskulptor-demos.commondatastorage.googleapis.com/descent/background%20music.mp3',
+        'http://commondatastorage.googleapis.com/codeskulptor-assets/Epoq-Lepidoptera.mp3',
+        'http://codeskulptor-demos.commondatastorage.googleapis.com/pang/paza-moduless.mp3',
+        'http://commondatastorage.googleapis.com/codeskulptor-demos/riceracer_assets/music/win.mp3'
     ];
     for(let i=11; i<=100; i++) {
         extraTracks.push({
@@ -252,7 +247,12 @@ function playTrack(index) {
   currentIndex = index;
   currentTrack = tracks[index];
 
+  showToast(`Carregando: ${currentTrack.title}...`);
+  
+  audio.pause();
   audio.src = currentTrack.url;
+  audio.load();
+
   audio.play().then(() => {
     isPlaying = true;
     updatePlayButton();
@@ -260,7 +260,16 @@ function playTrack(index) {
     renderTracks();
     renderFavorites();
     updateFavoriteButton();
-  }).catch(e => console.error('Erro ao reproduzir:', e));
+  }).catch(e => {
+    console.error('Erro ao reproduzir:', e);
+    showToast('Erro ao carregar áudio. Tentando novamente...');
+    // Tentar carregar sem crossorigin se falhar
+    audio.removeAttribute('crossorigin');
+    audio.load();
+    audio.play().catch(err => {
+        alert('Não foi possível tocar esta música. Verifique sua internet ou se o arquivo existe.');
+    });
+  });
 }
 
 function togglePlay() {
