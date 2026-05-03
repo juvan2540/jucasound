@@ -24,17 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
 // ===== LOAD MUSIC =====
 // ===== CLOUD TRACKS (Discovery) =====
 const cloudTracks = [
-  { id: 'c1', title: 'Summer Walk', artist: 'Olexy', album: 'Chill Out', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', duration: 372 },
-  { id: 'c2', title: 'Endless Motion', artist: 'Leonell Cassio', album: 'Electronic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', duration: 425 },
-  { id: 'c3', title: 'The Great Unknown', artist: 'Audionautix', album: 'Rock', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', duration: 315 },
-  { id: 'c4', title: 'Mountain Road', artist: 'Corporate', album: 'Acoustic', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3', duration: 250 },
-  { id: 'c5', title: 'Neon Lights', artist: 'SynthWave', album: 'Retro', url: 'https://cdn.pixabay.com/audio/2022/03/10/audio_c8c8a73484.mp3', duration: 145 },
-  { id: 'c6', title: 'Midnight City', artist: 'NightOwl', album: 'Lofi', url: 'https://cdn.pixabay.com/audio/2022/05/27/audio_180873747b.mp3', duration: 180 },
-  { id: 'c7', title: 'Acoustic Guitar', artist: 'Music_For_Videos', album: 'Folk', url: 'https://cdn.pixabay.com/audio/2022/01/21/audio_31b582566f.mp3', duration: 120 },
-  { id: 'c8', title: 'Inspirational Dream', artist: 'Ashamaluev', album: 'Epic', url: 'https://cdn.pixabay.com/audio/2021/11/23/audio_070e60803c.mp3', duration: 210 },
-  { id: 'c9', title: 'Cyberpunk Action', artist: 'White_Project', album: 'Game', url: 'https://cdn.pixabay.com/audio/2022/03/15/audio_2452e80556.mp3', duration: 155 },
-  { id: 'c10', title: 'Relaxing Piano', artist: 'Pianist', album: 'Classical', url: 'https://cdn.pixabay.com/audio/2022/08/02/audio_8845893110.mp3', duration: 195 }
-  // ... Vou adicionar o restante via loop para não poluir o código
+  { id: 'c1', title: 'Acoustic Breeze', artist: 'Bensound', album: 'Folk', url: 'https://www.bensound.com/bensound-music/bensound-acousticbreeze.mp3', duration: 156 },
+  { id: 'c2', title: 'Creative Minds', artist: 'Bensound', album: 'Jazz', url: 'https://www.bensound.com/bensound-music/bensound-creativeminds.mp3', duration: 147 },
+  { id: 'c3', title: 'Going Higher', artist: 'Bensound', album: 'Rock', url: 'https://www.bensound.com/bensound-music/bensound-goinghigher.mp3', duration: 244 },
+  { id: 'c4', title: 'Happy Rock', artist: 'Bensound', album: 'Energy', url: 'https://www.bensound.com/bensound-music/bensound-happyrock.mp3', duration: 105 },
+  { id: 'c5', title: 'Hey!', artist: 'Bensound', album: 'Pop', url: 'https://www.bensound.com/bensound-music/bensound-hey.mp3', duration: 146 },
+  { id: 'c6', title: 'Jazzy Frenchy', artist: 'Bensound', album: 'Jazz', url: 'https://www.bensound.com/bensound-music/bensound-jazzyfrenchy.mp3', duration: 104 },
+  { id: 'c7', title: 'Little Idea', artist: 'Bensound', album: 'Cute', url: 'https://www.bensound.com/bensound-music/bensound-littleidea.mp3', duration: 169 },
+  { id: 'c8', title: 'Memories', artist: 'Bensound', album: 'Sad', url: 'https://www.bensound.com/bensound-music/bensound-memories.mp3', duration: 230 },
+  { id: 'c9', title: 'Sunny', artist: 'Bensound', album: 'Happy', url: 'https://www.bensound.com/bensound-music/bensound-sunny.mp3', duration: 140 },
+  { id: 'c10', title: 'The Lounge', artist: 'Bensound', album: 'Relax', url: 'https://www.bensound.com/bensound-music/bensound-thelounge.mp3', duration: 256 }
 ];
 
 async function loadMusicFromServer() {
@@ -45,14 +44,20 @@ async function loadMusicFromServer() {
     
     // Gerar mais 90 músicas variadas para completar as 100
     const extraTracks = [];
+    const baseUrls = [
+        'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+        'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+        'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
+        'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3'
+    ];
     for(let i=11; i<=100; i++) {
         extraTracks.push({
             id: 'c' + i,
             title: `Global Hit #${i}`,
             artist: ['Juca Beats', 'DJ Master', 'Cloud Artist', 'Vibe Maker'][i % 4],
             album: 'Cloud Discovery',
-            url: `https://www.soundhelix.com/examples/mp3/SoundHelix-Song-${(i % 16) + 1}.mp3`,
-            duration: 200 + (i * 2)
+            url: baseUrls[i % baseUrls.length],
+            duration: 180 + (i % 60)
         });
     }
     
