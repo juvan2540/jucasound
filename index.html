@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JucaSound | Player de Música</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🎵</div>
+      <h1>JucaSound</h1>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-view="home"><span class="nav-icon">🏠</span> Início</a>
+      <a href="#" class="nav-item" data-view="search"><span class="nav-icon">🔍</span> Buscar</a>
+      <a href="#" class="nav-item" data-view="library"><span class="nav-icon">📚</span> Biblioteca</a>
+      <a href="#" class="nav-item" data-view="favorites"><span class="nav-icon">❤️</span> Favoritas</a>
+    </nav>
+    <div class="sidebar-playlists">
+      <h3>Suas Playlists</h3>
+      <button class="btn-new-playlist" id="btnNewPlaylist">+ Nova Playlist</button>
+      <div id="playlistList" class="playlist-list"></div>
+    </div>
+    <div class="sidebar-footer">
+      <p>JucaSound v1.0</p>
+      <p>by Juvan Santos</p>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-search">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Buscar músicas, artistas...">
+      </div>
+      <div class="header-actions">
+        <button class="btn-upload" id="btnUpload" title="Adicionar músicas">
+          <span>📂</span> Adicionar
+        </button>
+        <input type="file" id="fileInput" accept="audio/*" multiple hidden>
+        <div class="user-avatar" id="userAvatar">JB</div>
+      </div>
+    </header>
+
+    <!-- HOME VIEW -->
+    <section class="view active" id="viewHome">
+      <div class="hero-banner">
+        <div class="hero-content">
+          <span class="hero-badge">🎧 Sua Coleção</span>
+          <h2>Bem-vindo ao JucaSound</h2>
+          <p>Seu player de música pessoal com estilo profissional</p>
+        </div>
+        <div class="hero-visualizer" id="heroVisualizer"></div>
+      </div>
+
+      <section class="section">
+        <div class="section-header">
+          <h3>🔥 Todas as Músicas</h3>
+          <span class="track-count" id="trackCount">0 faixas</span>
+        </div>
+        <div class="track-list" id="trackList"></div>
+      </section>
+    </section>
+
+    <!-- SEARCH VIEW -->
+    <section class="view" id="viewSearch">
+      <h2 class="view-title">🔍 Buscar</h2>
+      <div class="search-results" id="searchResults">
+        <p class="empty-state">Digite algo para buscar nas suas músicas...</p>
+      </div>
+    </section>
+
+    <!-- LIBRARY VIEW -->
+    <section class="view" id="viewLibrary">
+      <h2 class="view-title">📚 Biblioteca</h2>
+      <div class="library-grid" id="libraryGrid"></div>
+    </section>
+
+    <!-- FAVORITES VIEW -->
+    <section class="view" id="viewFavorites">
+      <h2 class="view-title">❤️ Favoritas</h2>
+      <div class="track-list" id="favoritesList">
+        <p class="empty-state">Nenhuma música favorita ainda. Clique no ❤️ para adicionar!</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- PLAYER BAR -->
+  <footer class="player-bar" id="playerBar">
+    <div class="player-track-info">
+      <div class="player-artwork" id="playerArtwork">
+        <div class="artwork-placeholder">🎵</div>
+      </div>
+      <div class="player-details">
+        <span class="player-title" id="playerTitle">Nenhuma música</span>
+        <span class="player-artist" id="playerArtist">Selecione uma faixa</span>
+      </div>
+      <button class="btn-favorite" id="btnFavorite" title="Favoritar">🤍</button>
+    </div>
+
+    <div class="player-controls">
+      <div class="control-buttons">
+        <button class="btn-ctrl" id="btnShuffle" title="Aleatório">🔀</button>
+        <button class="btn-ctrl" id="btnPrev" title="Anterior">⏮</button>
+        <button class="btn-ctrl btn-play" id="btnPlay" title="Play">▶</button>
+        <button class="btn-ctrl" id="btnNext" title="Próxima">⏭</button>
+        <button class="btn-ctrl" id="btnRepeat" title="Repetir">🔁</button>
+      </div>
+      <div class="progress-container">
+        <span class="time" id="currentTime">0:00</span>
+        <div class="progress-bar" id="progressBar">
+          <div class="progress-fill" id="progressFill"></div>
+          <div class="progress-handle" id="progressHandle"></div>
+        </div>
+        <span class="time" id="totalTime">0:00</span>
+      </div>
+    </div>
+
+    <div class="player-extra">
+      <button class="btn-ctrl" id="btnQueue" title="Fila">📋</button>
+      <div class="volume-container">
+        <button class="btn-ctrl" id="btnVolume" title="Volume">🔊</button>
+        <div class="volume-bar" id="volumeBar">
+          <div class="volume-fill" id="volumeFill"></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AUDIO -->
+  <audio id="audio" preload="auto"></audio>
+
+  <!-- CANVAS VISUALIZER -->
+  <canvas id="visualizerCanvas" class="visualizer-canvas"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>
